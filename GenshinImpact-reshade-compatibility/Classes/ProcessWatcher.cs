@@ -13,36 +13,23 @@ namespace GenshinImpact_reshade_compatibility.Classes
 
         private static Lazy<ManagementScope> lazyScope = new Lazy<ManagementScope>(() => new ManagementScope("root\\CIMV2"));
 
-        public ProcessWatcher() : this(null, null) { }
+        public ProcessWatcher() : this(null) { }
 
-        public ProcessWatcher(TimeSpan? interval) : this(null, interval) { }
+        public ProcessWatcher(TimeSpan interval) : this(null, interval) { }
 
-        public ProcessWatcher(string targetName) : this(targetName, null) { }
+        public ProcessWatcher(string targetName) : this(targetName, TimeSpan.FromSeconds(1)) { }
 
-        public ProcessWatcher(string targetName, TimeSpan? interval)
+        public ProcessWatcher(string targetName, TimeSpan interval)
         {
+            if (interval == TimeSpan.Zero) throw new ArgumentException("Interval must be greater than 0 milisecond.", nameof(interval));
             WqlEventQuery query;
-            if (interval.HasValue)
+            if (string.IsNullOrEmpty(targetName))
             {
-                if (string.IsNullOrEmpty(targetName))
-                {
-                    query = new WqlEventQuery("__InstanceCreationEvent", interval.Value, "TargetInstance Isa 'Win32_Process'");
-                }
-                else
-                {
-                    query = new WqlEventQuery("__InstanceCreationEvent", interval.Value, $"TargetInstance Isa 'Win32_Process' And TargetInstance.Name = '{targetName}'");
-                }
+                query = new WqlEventQuery("__InstanceCreationEvent", interval, "TargetInstance Isa 'Win32_Process'");
             }
             else
             {
-                if (string.IsNullOrEmpty(targetName))
-                {
-                    query = new WqlEventQuery("Select * From __InstanceCreationEvent Where TargetInstance Isa 'Win32_Process'");
-                }
-                else
-                {
-                    query = new WqlEventQuery($"Select * From __InstanceCreationEvent Where TargetInstance Isa 'Win32_Process' And TargetInstance.Name = '{targetName}'");
-                }
+                query = new WqlEventQuery("__InstanceCreationEvent", interval, $"TargetInstance Isa 'Win32_Process' And TargetInstance.Name = '{targetName}'");
             }
             this.wmiEventWatcher = new ManagementEventWatcher(lazyScope.Value, query);
             this.wmiEventWatcher.EventArrived += this.WmiEventWatcher_EventArrived;
