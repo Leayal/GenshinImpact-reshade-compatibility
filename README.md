@@ -4,6 +4,9 @@
 # Credit
  Thanks to [`Want Reshade to work?` post on miHoYo's forum](https://forums.mihoyo.com/genshin/article/29341).
 
+# Disclaimer
+ I don't know if the game allows ReShade or not. **Please use ReShade at your own risk**.
+
 # Notice
  - This application is **not** an injector/loader. It's just simply a file renamer. Thus, it will not inject ReShade.dll to the game process.
  - **Do NOT run this application as administration, unless required**. For example: Your game data is in a place that only admin can write files to. The application can't rename the ReShade file unless you elevate it as Admin.
@@ -13,4 +16,4 @@
  - You still have to install and configure ReShade by yourself. [ReShade download page here](https://reshade.me/#download).
 
 # Explaination
- The application will wait for the game to be launched (by you). Then it will see whether the game directory has `dxgi.dll` file, if `dxgi.dll` exists, it will wait until the game loads the .dll file then renaming it to a random name. Finally, the application will wait until the game exit and rename the file with random name above back to `dxgi.dll`. You also don't have to restart this application everytime you launch the game.
+ The application will wait for the game to be launched (by you). Then it will see whether the game directory has `dxgi.dll` file, if `dxgi.dll` exists, it will wait until the game loads the .dll file then renaming it to a random name. Finally, the application will wait until the game exits and rename the file with random name above back to `dxgi.dll`. You also don't have to restart this application everytime you launch the game.
