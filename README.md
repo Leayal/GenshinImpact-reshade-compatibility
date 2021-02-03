@@ -2,7 +2,7 @@
  Reshade compatibility for Genshin Impact game. Say no more to `manually renaming dxgi.dll file back and forth`.
 
 # Credit
- Thanks to [`Want Reshade to work?` post on miHoYo's forum](https://forums.mihoyo.com/genshin/article/29341).
+ Thanks to [`Want Reshade to work?` post on miHoYo's forum](https://www.hoyolab.com/genshin/article/29341).
 
 # Disclaimer
  I don't know if the game allows ReShade or not. **Please use ReShade at your own risk**.
